@@ -289,6 +289,7 @@ def student_dashboard():
     level = latest["prediction_level"] if latest else None
     return render_template("student_dashboard.html", student=student, prediction=prediction, level=level)
 
+init_db()
+
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
