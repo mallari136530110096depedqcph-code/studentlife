@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Register · StudentLife Analytics{% endblock %}
+{% block auth_content %}<div class="auth-page"><div class="auth-card"><div class="auth-logo">✦</div><h1>Create Student Account</h1><p class="muted">Access your academic performance dashboard.</p>
+<form method="post"><label>Full Name</label><input name="student_name" required placeholder="Your full name"><label>Username</label><input name="username" required><label>Password</label><input name="password" type="password" minlength="6" required><button class="btn full">Create Account</button></form>
+<p class="auth-bottom">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p></div></div>{% endblock %}

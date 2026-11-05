@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}StudentLife Analytics{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+{% if session.get('user_id') %}
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-icon">✦</span><span>StudentLife<br><small>ANALYTICS</small></span></a>
+    <div class="role-tag">{{ session.get('role','').title() }} Portal</div>
+    <nav>
+      {% if session.get('role') == 'admin' %}
+      <a href="{{ url_for('dashboard') }}">▦ <span>Dashboard</span></a>
+      <a href="{{ url_for('students') }}">♙ <span>Students</span></a>
+      <a href="{{ url_for('predict') }}">⌁ <span>Grade Prediction</span></a>
+      <a href="{{ url_for('ranking') }}">♜ <span>Class Ranking</span></a>
+      <a href="{{ url_for('history') }}">◷ <span>Prediction History</span></a>
+      <a href="{{ url_for('reports') }}">▤ <span>Reports</span></a>
+      {% else %}
+      <a href="{{ url_for('student_dashboard') }}">▦ <span>My Dashboard</span></a>
+      <a href="{{ url_for('profile') }}">♙ <span>My Profile</span></a>
+      <a href="{{ url_for('predict') }}">⌁ <span>My Prediction</span></a>
+      <a href="{{ url_for('history') }}">◷ <span>My History</span></a>
+      <a href="{{ url_for('ranking') }}">♜ <span>Class Ranking</span></a>
+      {% endif %}
+    </nav>
+    <a class="logout" href="{{ url_for('logout') }}">↪ <span>Logout</span></a>
+  </aside>
+  <main class="main">
+    <header class="topbar"><button class="menu-button" onclick="toggleMenu()">☰</button><div><b>StudentLife Analytics</b><small>Academic Performance Monitoring System</small></div><span class="user-chip">● {{ session.get('username') }}</span></header>
+    <section class="page">
+      {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}
+      {% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}
+      {% endif %}{% endwith %}
+      {% block content %}{% endblock %}
+    </section>
+    <footer>StudentLife Analytics · Academic insights for better learning</footer>
+  </main>
+</div>
+{% else %}
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="auth-flashes">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block auth_content %}{% endblock %}
+{% endif %}
+<script>
+function toggleMenu(){document.getElementById('sidebar').classList.toggle('open')}
+</script>
+</body></html>

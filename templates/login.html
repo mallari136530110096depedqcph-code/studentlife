@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Sign in · StudentLife Analytics{% endblock %}
+{% block auth_content %}
+<div class="auth-page"><div class="auth-card">
+  <div class="auth-logo">✦</div><h1>StudentLife Analytics</h1>
+  <p class="muted">Student Grade Prediction & Academic Performance Monitoring System Using Linear Regression</p>
+  <form method="post"><label>Username</label><input name="username" placeholder="Enter your username" required>
+  <label>Password</label><input name="password" type="password" placeholder="Enter your password" required>
+  <button class="btn full">Sign In</button></form>
+  <p class="auth-bottom">New student? <a href="{{ url_for('register') }}">Create an account</a></p>
+  <div class="demo">Demo admin login: <b>admin</b> / <b>admin123</b></div>
+</div></div>
+{% endblock %}

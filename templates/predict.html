@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block content %}
+<div class="page-heading"><div><p class="eyebrow">LINEAR REGRESSION</p><h1>{% if session.role == 'admin' %}Grade Prediction{% else %}My Prediction{% endif %}</h1><p class="muted">Estimate academic performance from study hours, attendance, and previous grade.</p></div></div>
+<div class="content-grid"><div class="panel form-panel"><h2>Prediction Inputs</h2><form method="post" class="form-grid">
+{% if session.role == 'admin' %}<div class="field wide"><label>Select Student</label><select name="student_id" required><option value="">Choose a student</option>{% for s in choices %}<option value="{{ s.id }}">{{ s.student_name }} · {{ s.course }}</option>{% endfor %}</select></div>
+<p class="wide muted">The selected student's saved academic data will be used.</p>
+{% else %}
+<div class="field wide"><label>Study Hours per Week (0–105)</label><input type="number" name="study_hours" min="0" max="105" step="0.1" value="{{ student.study_hours if student else 0 }}" required></div>
+<div class="field"><label>Attendance (%)</label><input type="number" name="attendance" min="0" max="100" step="0.1" value="{{ student.attendance if student else 0 }}" required></div>
+<div class="field"><label>Previous Grade (%)</label><input type="number" name="previous_grade" min="0" max="100" step="0.1" value="{{ student.previous_grade if student else 0 }}" required></div>
+{% endif %}<div class="wide"><button class="btn full">Calculate Prediction</button></div></form></div>
+<div class="panel info-panel"><div class="info-icon">⌁</div><h2>How it works</h2><p>The system estimates a student's grade using Linear Regression. When enough records with actual grades are available, the model fits coefficients to those records. Otherwise, it uses the initial baseline formula.</p><div class="formula">Estimate = 0.5 × Previous Grade<br>+ 0.3 × (Study Hours × 10)<br>+ 0.2 × Attendance</div><small class="muted">Predictions are estimates for monitoring—not guaranteed final grades.</small></div></div>
+{% endblock %}
