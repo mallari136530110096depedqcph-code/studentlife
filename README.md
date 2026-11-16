@@ -1,4 +1,10 @@
 # StudentLife Analytics
+##Member 
+Advincula, Rhon Angelo
+Bravo, Lorenzo
+Dawal, Carlos Benedict
+Esteban, Christopher Jherome
+Mallari, Joshua
 
 Responsive Flask website prototype for **StudentLife Analytics: A Student Grade Prediction and Academic Performance Monitoring System Using Linear Regression**.
 
